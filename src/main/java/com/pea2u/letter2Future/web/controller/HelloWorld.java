@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * hello world
  */
 @Controller
+@RestController
 public class HelloWorld {
 
     @Autowired

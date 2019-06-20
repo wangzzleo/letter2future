@@ -1,0 +1,15 @@
+com\pea2u\letter2Future\mbg\CommentGenerator.class
+com\pea2u\letter2Future\util\LetterUtils.class
+com\pea2u\letter2Future\service\HelloService.class
+com\pea2u\letter2Future\model\User.class
+com\pea2u\letter2Future\WebConfiguration.class
+com\pea2u\letter2Future\mapper\LetterMapper.class
+com\pea2u\letter2Future\WebConfiguration$MyFilter.class
+com\pea2u\letter2Future\config\Swagger2Config.class
+com\pea2u\letter2Future\service\impl\HelloServiceImpl.class
+com\pea2u\letter2Future\mbg\Generator.class
+com\pea2u\letter2Future\model\Letter.class
+com\pea2u\letter2Future\Application.class
+com\pea2u\letter2Future\mapper\UserMapper.class
+com\pea2u\letter2Future\web\controller\HelloWorld.class
+com\pea2u\letter2Future\web\controller\TestController.class

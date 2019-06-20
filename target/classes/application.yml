@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+
+mybatis:
+  mapper-locations:
+    - classpath:mybatis/mapper/*.xml
+    - classpath*:com/**/mapper/*.xml
+  config-location:
+    - classpath:mybatis/mybatis-config.xml
+
+logging:
+  level:
+    root: INFO
+    org:
+     springframework:
+       web: DEBUG
+  path: /usr/local/appserver
+  file: demo.log
+
+debug: true
