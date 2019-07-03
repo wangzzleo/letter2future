@@ -4,6 +4,8 @@ server:
 spring:
   profiles:
     active: #env#
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
 
 mybatis:
   mapper-locations:
