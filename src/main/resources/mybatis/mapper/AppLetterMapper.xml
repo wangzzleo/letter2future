@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pea2u.letter2Future.mapper.AppLetterMapper">
+  <resultMap id="BaseResultMap" type="com.pea2u.letter2Future.model.AppLetter">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="letter_title" jdbcType="VARCHAR" property="letterTitle" />
+    <result column="letter_source" jdbcType="INTEGER" property="letterSource" />
+    <result column="letter_type" jdbcType="INTEGER" property="letterType" />
+    <result column="check_status" jdbcType="INTEGER" property="checkStatus" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pea2u.letter2Future.model.AppLetter">
+    <result column="letter_content" jdbcType="LONGVARCHAR" property="letterContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, cust_id, letter_title, letter_source, letter_type, check_status, status, create_time, 
+    update_time
+  </sql>
+  <sql id="Blob_Column_List">
+    letter_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.pea2u.letter2Future.model.AppLetterExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_letter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.pea2u.letter2Future.model.AppLetterExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from app_letter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_letter
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_letter
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.pea2u.letter2Future.model.AppLetterExample">
+    delete from app_letter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.pea2u.letter2Future.model.AppLetter">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into app_letter (cust_id, letter_title, letter_source, 
+      letter_type, check_status, status, 
+      create_time, update_time, letter_content
+      )
+    values (#{custId,jdbcType=INTEGER}, #{letterTitle,jdbcType=VARCHAR}, #{letterSource,jdbcType=INTEGER}, 
+      #{letterType,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{letterContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.pea2u.letter2Future.model.AppLetter">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into app_letter
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="letterTitle != null">
+        letter_title,
+      </if>
+      <if test="letterSource != null">
+        letter_source,
+      </if>
+      <if test="letterType != null">
+        letter_type,
+      </if>
+      <if test="checkStatus != null">
+        check_status,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="letterContent != null">
+        letter_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="letterTitle != null">
+        #{letterTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="letterSource != null">
+        #{letterSource,jdbcType=INTEGER},
+      </if>
+      <if test="letterType != null">
+        #{letterType,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null">
+        #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="letterContent != null">
+        #{letterContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.pea2u.letter2Future.model.AppLetterExample" resultType="java.lang.Integer">
+    select count(*) from app_letter
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update app_letter
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.custId != null">
+        cust_id = #{record.custId,jdbcType=INTEGER},
+      </if>
+      <if test="record.letterTitle != null">
+        letter_title = #{record.letterTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.letterSource != null">
+        letter_source = #{record.letterSource,jdbcType=INTEGER},
+      </if>
+      <if test="record.letterType != null">
+        letter_type = #{record.letterType,jdbcType=INTEGER},
+      </if>
+      <if test="record.checkStatus != null">
+        check_status = #{record.checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.letterContent != null">
+        letter_content = #{record.letterContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update app_letter
+    set id = #{record.id,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=INTEGER},
+      letter_title = #{record.letterTitle,jdbcType=VARCHAR},
+      letter_source = #{record.letterSource,jdbcType=INTEGER},
+      letter_type = #{record.letterType,jdbcType=INTEGER},
+      check_status = #{record.checkStatus,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      letter_content = #{record.letterContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update app_letter
+    set id = #{record.id,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=INTEGER},
+      letter_title = #{record.letterTitle,jdbcType=VARCHAR},
+      letter_source = #{record.letterSource,jdbcType=INTEGER},
+      letter_type = #{record.letterType,jdbcType=INTEGER},
+      check_status = #{record.checkStatus,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2Future.model.AppLetter">
+    update app_letter
+    <set>
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="letterTitle != null">
+        letter_title = #{letterTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="letterSource != null">
+        letter_source = #{letterSource,jdbcType=INTEGER},
+      </if>
+      <if test="letterType != null">
+        letter_type = #{letterType,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null">
+        check_status = #{checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="letterContent != null">
+        letter_content = #{letterContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pea2u.letter2Future.model.AppLetter">
+    update app_letter
+    set cust_id = #{custId,jdbcType=INTEGER},
+      letter_title = #{letterTitle,jdbcType=VARCHAR},
+      letter_source = #{letterSource,jdbcType=INTEGER},
+      letter_type = #{letterType,jdbcType=INTEGER},
+      check_status = #{checkStatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      letter_content = #{letterContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2Future.model.AppLetter">
+    update app_letter
+    set cust_id = #{custId,jdbcType=INTEGER},
+      letter_title = #{letterTitle,jdbcType=VARCHAR},
+      letter_source = #{letterSource,jdbcType=INTEGER},
+      letter_type = #{letterType,jdbcType=INTEGER},
+      check_status = #{checkStatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
