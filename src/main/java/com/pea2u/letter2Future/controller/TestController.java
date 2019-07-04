@@ -1,4 +1,4 @@
-package com.pea2u.letter2Future.web.controller;
+package com.pea2u.letter2Future.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

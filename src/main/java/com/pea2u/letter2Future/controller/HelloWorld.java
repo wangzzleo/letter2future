@@ -1,4 +1,4 @@
-package com.pea2u.letter2Future.web.controller;
+package com.pea2u.letter2Future.controller;
 
 import com.pea2u.letter2Future.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
