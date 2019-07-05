@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pea2u.letter2Future.mapper.AppLetterMapper">
-  <resultMap id="BaseResultMap" type="com.pea2u.letter2Future.model.AppLetter">
+<mapper namespace="com.pea2u.letter2future.mapper.AppLetterMapper">
+  <resultMap id="BaseResultMap" type="com.pea2u.letter2future.model.AppLetter">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cust_id" jdbcType="INTEGER" property="custId" />
     <result column="letter_title" jdbcType="VARCHAR" property="letterTitle" />
@@ -12,7 +12,7 @@
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pea2u.letter2Future.model.AppLetter">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pea2u.letter2future.model.AppLetter">
     <result column="letter_content" jdbcType="LONGVARCHAR" property="letterContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -80,7 +80,7 @@
   <sql id="Blob_Column_List">
     letter_content
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.pea2u.letter2Future.model.AppLetterExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.pea2u.letter2future.model.AppLetterExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -96,7 +96,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.pea2u.letter2Future.model.AppLetterExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pea2u.letter2future.model.AppLetterExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -122,13 +122,13 @@
     delete from app_letter
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pea2u.letter2Future.model.AppLetterExample">
+  <delete id="deleteByExample" parameterType="com.pea2u.letter2future.model.AppLetterExample">
     delete from app_letter
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pea2u.letter2Future.model.AppLetter">
+  <insert id="insert" parameterType="com.pea2u.letter2future.model.AppLetter">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -141,7 +141,7 @@
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{letterContent,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.pea2u.letter2Future.model.AppLetter">
+  <insert id="insertSelective" parameterType="com.pea2u.letter2future.model.AppLetter">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -205,7 +205,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pea2u.letter2Future.model.AppLetterExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.pea2u.letter2future.model.AppLetterExample" resultType="java.lang.Integer">
     select count(*) from app_letter
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -280,7 +280,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2Future.model.AppLetter">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2future.model.AppLetter">
     update app_letter
     <set>
       <if test="custId != null">
@@ -313,7 +313,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pea2u.letter2Future.model.AppLetter">
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pea2u.letter2future.model.AppLetter">
     update app_letter
     set cust_id = #{custId,jdbcType=INTEGER},
       letter_title = #{letterTitle,jdbcType=VARCHAR},
@@ -326,7 +326,7 @@
       letter_content = #{letterContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2Future.model.AppLetter">
+  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2future.model.AppLetter">
     update app_letter
     set cust_id = #{custId,jdbcType=INTEGER},
       letter_title = #{letterTitle,jdbcType=VARCHAR},

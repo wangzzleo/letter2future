@@ -26,12 +26,6 @@
     </parent>
 
     <dependencies>
-        <!-- 项目通用 -->
-        <dependency>
-            <groupId>com.pea2u</groupId>
-            <artifactId>common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
         <!--SpringBoot通用依赖模块-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -92,6 +86,11 @@
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.7.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.14</version>
+        </dependency>
     </dependencies>
 
     <!--环境-->
@@ -138,7 +137,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <!-- 指定该Main Class为全局的唯一入口 -->
-                    <mainClass>com.pea2u.letter2Future.Application</mainClass>
+                    <mainClass>com.pea2u.letter2future.Application</mainClass>
                     <layout>ZIP</layout>
                     <executable>true</executable>
                 </configuration>

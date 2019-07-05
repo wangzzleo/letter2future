@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pea2u.letter2Future.mapper.AppOrderMapper">
-  <resultMap id="BaseResultMap" type="com.pea2u.letter2Future.model.AppOrder">
+<mapper namespace="com.pea2u.letter2future.mapper.AppOrderMapper">
+  <resultMap id="BaseResultMap" type="com.pea2u.letter2future.model.AppOrder">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
     <result column="cust_id" jdbcType="INTEGER" property="custId" />
@@ -76,7 +76,7 @@
     id, order_sn, cust_id, total_amount, pay_amount, freight_amount, discount_amount, 
     pay_type, status, create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.pea2u.letter2Future.model.AppOrderExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pea2u.letter2future.model.AppOrderExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from app_order
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pea2u.letter2Future.model.AppOrderExample">
+  <delete id="deleteByExample" parameterType="com.pea2u.letter2future.model.AppOrderExample">
     delete from app_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pea2u.letter2Future.model.AppOrder">
+  <insert id="insert" parameterType="com.pea2u.letter2future.model.AppOrder">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -119,7 +119,7 @@
       #{payType,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.pea2u.letter2Future.model.AppOrder">
+  <insert id="insertSelective" parameterType="com.pea2u.letter2future.model.AppOrder">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pea2u.letter2Future.model.AppOrderExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.pea2u.letter2future.model.AppOrderExample" resultType="java.lang.Integer">
     select count(*) from app_order
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2Future.model.AppOrder">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2future.model.AppOrder">
     update app_order
     <set>
       <if test="orderSn != null">
@@ -289,7 +289,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2Future.model.AppOrder">
+  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2future.model.AppOrder">
     update app_order
     set order_sn = #{orderSn,jdbcType=VARCHAR},
       cust_id = #{custId,jdbcType=INTEGER},

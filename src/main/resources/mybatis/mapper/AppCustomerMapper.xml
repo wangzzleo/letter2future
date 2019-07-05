@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pea2u.letter2Future.mapper.AppCustomerMapper">
-  <resultMap id="BaseResultMap" type="com.pea2u.letter2Future.model.AppCustomer">
+<mapper namespace="com.pea2u.letter2future.mapper.AppCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.pea2u.letter2future.model.AppCustomer">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cust_name" jdbcType="VARCHAR" property="custName" />
     <result column="password" jdbcType="VARCHAR" property="password" />
@@ -76,7 +76,7 @@
     id, cust_name, password, phone, wx_id, qq_number, alipay_id, toutiao_id, status, 
     create_time, update_time
   </sql>
-  <select id="selectByExample" parameterType="com.pea2u.letter2Future.model.AppCustomerExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.pea2u.letter2future.model.AppCustomerExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
@@ -100,13 +100,13 @@
     delete from app_customer
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.pea2u.letter2Future.model.AppCustomerExample">
+  <delete id="deleteByExample" parameterType="com.pea2u.letter2future.model.AppCustomerExample">
     delete from app_customer
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.pea2u.letter2Future.model.AppCustomer">
+  <insert id="insert" parameterType="com.pea2u.letter2future.model.AppCustomer">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -119,7 +119,7 @@
       #{toutiaoId,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.pea2u.letter2Future.model.AppCustomer">
+  <insert id="insertSelective" parameterType="com.pea2u.letter2future.model.AppCustomer">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -189,7 +189,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.pea2u.letter2Future.model.AppCustomerExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.pea2u.letter2future.model.AppCustomerExample" resultType="java.lang.Integer">
     select count(*) from app_customer
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
@@ -253,7 +253,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2Future.model.AppCustomer">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2future.model.AppCustomer">
     update app_customer
     <set>
       <if test="custName != null">
@@ -289,7 +289,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2Future.model.AppCustomer">
+  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2future.model.AppCustomer">
     update app_customer
     set cust_name = #{custName,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pea2u.letter2Future.mapper.SysParamMapper">
-  <resultMap id="BaseResultMap" type="com.pea2u.letter2Future.model.SysParam">
+<mapper namespace="com.pea2u.letter2future.mapper.SysParamMapper">
+  <resultMap id="BaseResultMap" type="com.pea2u.letter2future.model.SysParam">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="param_key" jdbcType="VARCHAR" property="paramKey" />
     <result column="param_value" jdbcType="VARCHAR" property="paramValue" />
@@ -20,13 +20,13 @@
     delete from sys_param
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.pea2u.letter2Future.model.SysParam">
+  <insert id="insert" parameterType="com.pea2u.letter2future.model.SysParam">
     insert into sys_param (id, param_key, param_value, 
       remark)
     values (#{id,jdbcType=INTEGER}, #{paramKey,jdbcType=VARCHAR}, #{paramValue,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.pea2u.letter2Future.model.SysParam">
+  <insert id="insertSelective" parameterType="com.pea2u.letter2future.model.SysParam">
     insert into sys_param
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -57,7 +57,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2Future.model.SysParam">
+  <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2future.model.SysParam">
     update sys_param
     <set>
       <if test="paramKey != null">
@@ -72,7 +72,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2Future.model.SysParam">
+  <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2future.model.SysParam">
     update sys_param
     set param_key = #{paramKey,jdbcType=VARCHAR},
       param_value = #{paramValue,jdbcType=VARCHAR},
