@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.pea2u</groupId>
-    <artifactId>letter2Future</artifactId>
+    <artifactId>letter2future</artifactId>
     <version>1.0</version>
 
-    <name>letter2Future</name>
+    <name>letter2future</name>
     <description>致未来</description>
 
     <!--版本号管理-->
