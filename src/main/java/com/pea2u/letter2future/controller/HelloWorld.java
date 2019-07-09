@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
  * hello world
  */
 @Controller
-@RestController
+@RestController("/api")
 public class HelloWorld {
 
     @Autowired
     private HelloService helloService;
 
-    @RequestMapping("hello")
+    @RequestMapping("/hello")
     public void hello() {
 
     }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @date
  */
 @Api(value = "test", description = "demo详情")
-@RestController
+@RestController("/api")
 public class TestController {
 
     @ApiOperation(value = "提交信件", httpMethod = "POST", consumes="application/x-www-form-urlencoded")
