@@ -10,7 +10,7 @@ public interface IErrorCode {
      * 获取操作码
      * @return 错误码
      */
-    long getCode();
+    int getCode();
 
     /**
      * 获取错误信息

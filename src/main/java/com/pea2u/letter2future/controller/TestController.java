@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author wangzz
  * @date
  */
-@Api(value = "test", description = "demo详情")
-@RestController("/api")
+//@Api(value = "test", description = "demo详情")
+//@RestController("/api")
 public class TestController {
 
     @ApiOperation(value = "提交信件", httpMethod = "POST", consumes="application/x-www-form-urlencoded")

@@ -18,23 +18,23 @@ public enum ResultCode implements IErrorCode {
      */
     VALIDATE_FAILED(404, "参数检验失败"),
     /**
-     * 暂未登录或token已经过期(小程序暂不使用)
+     * 暂未登录或token已经过期
      */
     UNAUTHORIZED(401, "暂未登录或token已经过期"),
     /**
-     * 没有相关权限（小程序不涉及）
+     * 没有相关权限
      */
     FORBIDDEN(403, "没有相关权限");
-    private long code;
+    private int code;
     private String message;
 
-    private ResultCode(long code, String message) {
+    private ResultCode(int code, String message) {
         this.code = code;
         this.message = message;
     }
 
     @Override
-    public long getCode() {
+    public int getCode() {
         return code;
     }
 
