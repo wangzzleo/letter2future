@@ -16,7 +16,7 @@ public enum ResultCode implements IErrorCode {
     /**
      * 参数检验失败
      */
-    VALIDATE_FAILED(404, "参数检验失败"),
+    VALIDATE_FAILED(501, "参数检验失败"),
     /**
      * 暂未登录或token已经过期
      */
@@ -24,7 +24,12 @@ public enum ResultCode implements IErrorCode {
     /**
      * 没有相关权限
      */
-    FORBIDDEN(403, "没有相关权限");
+    FORBIDDEN(403, "没有相关权限"),
+    /**
+     * 请求路径错误
+     */
+    URL_NOT_FOUND(404, "请求路径错误");
+
     private int code;
     private String message;
 

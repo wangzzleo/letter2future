@@ -16,6 +16,12 @@
     from sys_param
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByParamKey" parameterType="string" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_param
+    where param_key = #{paramKey,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from sys_param
     where id = #{id,jdbcType=INTEGER}

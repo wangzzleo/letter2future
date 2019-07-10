@@ -90,6 +90,20 @@ public class CommonResult<T> {
         return new CommonResult<T>(ResultCode.FORBIDDEN.getCode(), ResultCode.FORBIDDEN.getMessage(), data);
     }
 
+    /**
+     * 路径未找到
+     */
+    public static <T> CommonResult<T> urlNotFound(T data) {
+        return new CommonResult<T>(ResultCode.URL_NOT_FOUND.getCode(), ResultCode.URL_NOT_FOUND.getMessage(), data);
+    }
+
+    /**
+     * 路径未找到
+     */
+    public static <T> CommonResult<T> urlNotFound() {
+        return new CommonResult<T>(ResultCode.URL_NOT_FOUND.getCode(), ResultCode.URL_NOT_FOUND.getMessage(), null);
+    }
+
     public long getCode() {
         return code;
     }

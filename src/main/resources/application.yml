@@ -6,6 +6,10 @@ spring:
     active: local
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
 
 mybatis:
   mapper-locations:
@@ -13,14 +17,3 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
   config-location:
     - classpath:mybatis/mybatis-config.xml
-
-logging:
-  level:
-    root: INFO
-    org:
-     springframework:
-       web: DEBUG
-  path: /usr/local/appserver
-  file: demo.log
-
-debug: true

@@ -2,7 +2,10 @@ package com.pea2u.letter2future.controller;
 
 import com.pea2u.letter2future.common.CommonResult;
 import com.pea2u.letter2future.dto.SysParamDTO;
-import com.pea2u.letter2future.model.SysParam;
+import com.pea2u.letter2future.service.SysParamService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,12 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/wx/param")
+@Slf4j
 public class SysParamController {
 
+    @Autowired
+    private SysParamService sysParamService;
 
     @RequestMapping("/get")
     public CommonResult<SysParamDTO> getSysParam(String paramKey) {
-        return null;
+        log.info("查询系统参数，入参:{}", paramKey);
+        Assert.hasText(paramKey, "参数名称不可为空");
+        SysParamDTO sysParam = sysParamService.getSysParam(paramKey);
+        return CommonResult.success(sysParam);
     }
 
 
