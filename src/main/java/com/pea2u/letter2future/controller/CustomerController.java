@@ -17,4 +17,8 @@ public class CustomerController {
         return null;
     }
 
+    public CommonResult<CustomerDto> login(String wxId) {
+        return null;
+    }
+
 }
