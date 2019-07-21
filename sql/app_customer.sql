@@ -1,9 +1,11 @@
+DROP TABLE if exists app_customer;
+
 CREATE TABLE `app_customer` (
   `cust_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `cust_name` varchar(20) NOT NULL COMMENT '用户名',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `phone` varchar(15) DEFAULT NULL COMMENT '手机号码',
-  `wx_id` varchar(20) DEFAULT NULL COMMENT '微信号',
+  `wx_id` varchar(50) DEFAULT NULL COMMENT '微信开放号',
   `qq_number` varchar(20) DEFAULT NULL COMMENT 'qq号码',
   `alipay_id` varchar(20) DEFAULT NULL COMMENT '支付宝账号',
   `toutiao_id` varchar(20) DEFAULT NULL COMMENT '头条账户',

@@ -8,6 +8,8 @@ public interface CustomerService {
 
     CustomerDto queryCustomer(CustomerDto customer);
 
+    CustomerDto queryWxCustomer(String openid);
+
     String wxLoin(String code);
 
 }

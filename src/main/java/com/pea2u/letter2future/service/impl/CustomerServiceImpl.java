@@ -35,6 +35,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public CustomerDto queryWxCustomer(String openid) {
+        CustomerDto customerDto = new CustomerDto();
+        AppCustomer appCustomer = appCustomerMapper.selectByWxId(openid);
+        if (appCustomer != null) {
+            BeanUtils.copyProperties(appCustomer, customerDto);
+        } else {
+            customerDto = null;
+        }
+        return customerDto;
+    }
+
+    @Override
     public String wxLoin(String code) {
         return null;
     }

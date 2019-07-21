@@ -17,3 +17,7 @@ mybatis:
     - classpath*:com/**/mapper/*.xml
   config-location:
     - classpath:mybatis/mybatis-config.xml
+
+jwt:
+  secret:
+  expiration:

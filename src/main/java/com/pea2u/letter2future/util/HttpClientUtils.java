@@ -1,8 +1,6 @@
 package com.pea2u.letter2future.util;
 
 import org.apache.http.*;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -12,7 +10,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.config.Registry;
 import org.apache.http.config.RegistryBuilder;
-import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.LayeredConnectionSocketFactory;
@@ -23,13 +20,11 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HttpContext;
-
 import javax.net.ssl.SSLException;
 import javax.net.ssl.SSLHandshakeException;
 import java.io.*;
 import java.net.URI;
 import java.net.UnknownHostException;
-import java.security.GeneralSecurityException;
 import java.util.List;
 
 public class HttpClientUtils {
@@ -38,21 +33,21 @@ public class HttpClientUtils {
     private static CloseableHttpClient httpclient = null;
 
     // 这里就直接默认固定了,因为以下三个参数在新建的method中仍然可以重新配置并被覆盖.
-    static final int connectionRequestTimeout = 5000;// ms毫秒,从池中获取链接超时时间
-    static final int connectTimeout = 5000;// ms毫秒,建立链接超时时间
-    static final int socketTimeout = 30000;// ms毫秒,读取超时时间
+    private static final int connectionRequestTimeout = 5000;// ms毫秒,从池中获取链接超时时间
+    private static final int connectTimeout = 5000;// ms毫秒,建立链接超时时间
+    private static final int socketTimeout = 30000;// ms毫秒,读取超时时间
 
     // 总配置,主要涉及是以下两个参数,如果要作调整没有用到properties会比较后麻烦,
     // 但鉴于一经粘贴,随处可用的特点,就不再做依赖性配置化处理了.
     // 而且这个参数同一家公司基本不会变动.
-    static final int maxTotal = 500;// 最大总并发,很重要的参数
-    static final int maxPerRoute = 100;// 每路并发,很重要的参数
+    private static final int maxTotal = 500;// 最大总并发,很重要的参数
+    private static final int maxPerRoute = 100;// 每路并发,很重要的参数
 
     // 正常情况这里应该配成MAP或LIST
     // 细化配置参数,用来对每路参数做精细化处理,可以管控各ip的流量,比如默认配置请求baidu:80端口最大100个并发链接,
-    static final String detailHostName = "https://api.weixin.qq.com";// 每个细化配置之ip(不重要,在特殊场景很有用)
-    static final int detailPort = 80;// 每个细化配置之port(不重要,在特殊场景很有用)
-    static final int detailMaxPerRoute = 100;// 每个细化配置之最大并发数(不重要,在特殊场景很有用)
+    private static final String detailHostName = "https://api.weixin.qq.com";// 每个细化配置之ip(不重要,在特殊场景很有用)
+    private static final int detailPort = 80;// 每个细化配置之port(不重要,在特殊场景很有用)
+    private static final int detailMaxPerRoute = 100;// 每个细化配置之最大并发数(不重要,在特殊场景很有用)
 
     public static CloseableHttpClient getHttpClient() {
         if (null == httpclient) {
@@ -69,7 +64,7 @@ public class HttpClientUtils {
      * 链接池初始化 这里最重要的一点理解就是. 让CloseableHttpClient 一直活在池的世界里, 但是HttpPost却一直用完就消掉.
      * 这样可以让链接一直保持着.
      *
-     * @return
+     * @return httpClient
      */
     private static CloseableHttpClient init() {
         CloseableHttpClient newHttpclient = null;
@@ -118,9 +113,9 @@ public class HttpClientUtils {
                 return false;
             }
             // 连接被拒绝
-            if (exception instanceof ConnectTimeoutException) {
-                return false;
-            }
+//            if (exception instanceof ConnectTimeoutException) {
+//                return false;
+//            }
             // SSL握手异常
             if (exception instanceof SSLException) {
                 return false;
@@ -150,6 +145,10 @@ public class HttpClientUtils {
         return sendSSLRequest(url, post, charset, mimeType);
     }
 
+    public static String sendGetSSLRequest(String url){
+        return sendGetSSLRequest(url, null, "UTF-8", "");
+    }
+
     public static String sendGetSSLRequest(String url, Header[] headers, String charset, String mimeType){
         HttpGet get = new HttpGet();
         get.setHeaders(headers);
@@ -159,12 +158,9 @@ public class HttpClientUtils {
     /**
      * 发送一个 Post 请求, 使用指定的字符集编码.
      *
-     * @param url
+     * @param url 请求URL
      * @param charset 编码
      * @return ResponseBody, 使用指定的字符集编码.
-     * @throws ConnectTimeoutException 建立链接超时异常
-     * @throws SocketTimeoutException  响应超时
-     * @throws Exception
      */
     public static String sendSSLRequest(String url, HttpRequestBase requestBase, String charset, String mimeType){
         String result = "通信失败";
@@ -173,27 +169,29 @@ public class HttpClientUtils {
         }
         try {
             requestBase.setURI(new URI(url));
-            HttpResponse res = httpclient.execute(requestBase);
+            HttpResponse res = getHttpClient().execute(requestBase);
             HttpEntity entity = res.getEntity();
             StringBuilder sb = new StringBuilder();
             if (entity != null) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()));
-                String line = null;
+                String line;
                 while ((line = reader.readLine()) != null) {
-                    sb.append(line + "\n");
+                    sb.append(line).append("\n");
                 }
             }
             result = sb.toString();
-        }  catch (ClientProtocolException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }catch (Exception e){
-            e.printStackTrace();
-        }finally {
+        } finally {
             requestBase.releaseConnection();
         }
         return result;
+    }
+
+    public static void main(String[] args) {
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx9309ee85f54564cf&secret=5c8600af1dd565eaa8cf222e93746f58&js_code=0231FwiU09f9lZ1jAmkU0XpmiU01Fwi1&grant_type=authorization_code";
+        String s = HttpClientUtils.sendGetSSLRequest(url);
+        System.out.println(s);
     }
 
 }
