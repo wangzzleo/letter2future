@@ -1,6 +1,9 @@
 package com.pea2u.letter2future.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author wangzz
@@ -8,7 +11,10 @@ import lombok.Data;
  * 客户信息DTO
  */
 @Data
-public class CustomerDto {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class CustomerQO {
 
     /**
      * 用户ID
@@ -26,15 +32,9 @@ public class CustomerDto {
     private String wxId;
 
     /**
-     * 推送信息状态
-     * 0：无推送 1：有推送
+     * 微信登录code
      */
-    private Integer noticeStatus;
-
-    /**
-     * 收到信件数量
-     */
-    private Integer receiveLetterCount;
+    private String code;
 
     /**
      * 用户标识

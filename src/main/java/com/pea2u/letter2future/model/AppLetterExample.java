@@ -305,52 +305,52 @@ public class AppLetterExample {
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceEqualTo(Integer value) {
+        public Criteria andLetterSourceEqualTo(Byte value) {
             addCriterion("letter_source =", value, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceNotEqualTo(Integer value) {
+        public Criteria andLetterSourceNotEqualTo(Byte value) {
             addCriterion("letter_source <>", value, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceGreaterThan(Integer value) {
+        public Criteria andLetterSourceGreaterThan(Byte value) {
             addCriterion("letter_source >", value, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLetterSourceGreaterThanOrEqualTo(Byte value) {
             addCriterion("letter_source >=", value, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceLessThan(Integer value) {
+        public Criteria andLetterSourceLessThan(Byte value) {
             addCriterion("letter_source <", value, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceLessThanOrEqualTo(Integer value) {
+        public Criteria andLetterSourceLessThanOrEqualTo(Byte value) {
             addCriterion("letter_source <=", value, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceIn(List<Integer> values) {
+        public Criteria andLetterSourceIn(List<Byte> values) {
             addCriterion("letter_source in", values, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceNotIn(List<Integer> values) {
+        public Criteria andLetterSourceNotIn(List<Byte> values) {
             addCriterion("letter_source not in", values, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceBetween(Integer value1, Integer value2) {
+        public Criteria andLetterSourceBetween(Byte value1, Byte value2) {
             addCriterion("letter_source between", value1, value2, "letterSource");
             return (Criteria) this;
         }
 
-        public Criteria andLetterSourceNotBetween(Integer value1, Integer value2) {
+        public Criteria andLetterSourceNotBetween(Byte value1, Byte value2) {
             addCriterion("letter_source not between", value1, value2, "letterSource");
             return (Criteria) this;
         }
@@ -365,113 +365,53 @@ public class AppLetterExample {
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeEqualTo(Integer value) {
+        public Criteria andLetterTypeEqualTo(Byte value) {
             addCriterion("letter_type =", value, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeNotEqualTo(Integer value) {
+        public Criteria andLetterTypeNotEqualTo(Byte value) {
             addCriterion("letter_type <>", value, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeGreaterThan(Integer value) {
+        public Criteria andLetterTypeGreaterThan(Byte value) {
             addCriterion("letter_type >", value, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeGreaterThanOrEqualTo(Integer value) {
+        public Criteria andLetterTypeGreaterThanOrEqualTo(Byte value) {
             addCriterion("letter_type >=", value, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeLessThan(Integer value) {
+        public Criteria andLetterTypeLessThan(Byte value) {
             addCriterion("letter_type <", value, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeLessThanOrEqualTo(Integer value) {
+        public Criteria andLetterTypeLessThanOrEqualTo(Byte value) {
             addCriterion("letter_type <=", value, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeIn(List<Integer> values) {
+        public Criteria andLetterTypeIn(List<Byte> values) {
             addCriterion("letter_type in", values, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeNotIn(List<Integer> values) {
+        public Criteria andLetterTypeNotIn(List<Byte> values) {
             addCriterion("letter_type not in", values, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeBetween(Integer value1, Integer value2) {
+        public Criteria andLetterTypeBetween(Byte value1, Byte value2) {
             addCriterion("letter_type between", value1, value2, "letterType");
             return (Criteria) this;
         }
 
-        public Criteria andLetterTypeNotBetween(Integer value1, Integer value2) {
+        public Criteria andLetterTypeNotBetween(Byte value1, Byte value2) {
             addCriterion("letter_type not between", value1, value2, "letterType");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusIsNull() {
-            addCriterion("check_status is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusIsNotNull() {
-            addCriterion("check_status is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusEqualTo(Integer value) {
-            addCriterion("check_status =", value, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusNotEqualTo(Integer value) {
-            addCriterion("check_status <>", value, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusGreaterThan(Integer value) {
-            addCriterion("check_status >", value, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("check_status >=", value, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusLessThan(Integer value) {
-            addCriterion("check_status <", value, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("check_status <=", value, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusIn(List<Integer> values) {
-            addCriterion("check_status in", values, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusNotIn(List<Integer> values) {
-            addCriterion("check_status not in", values, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusBetween(Integer value1, Integer value2) {
-            addCriterion("check_status between", value1, value2, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCheckStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("check_status not between", value1, value2, "checkStatus");
             return (Criteria) this;
         }
 
@@ -485,52 +425,52 @@ public class AppLetterExample {
             return (Criteria) this;
         }
 
-        public Criteria andStatusEqualTo(Integer value) {
+        public Criteria andStatusEqualTo(Byte value) {
             addCriterion("status =", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotEqualTo(Integer value) {
+        public Criteria andStatusNotEqualTo(Byte value) {
             addCriterion("status <>", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThan(Integer value) {
+        public Criteria andStatusGreaterThan(Byte value) {
             addCriterion("status >", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusGreaterThanOrEqualTo(Integer value) {
+        public Criteria andStatusGreaterThanOrEqualTo(Byte value) {
             addCriterion("status >=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThan(Integer value) {
+        public Criteria andStatusLessThan(Byte value) {
             addCriterion("status <", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusLessThanOrEqualTo(Integer value) {
+        public Criteria andStatusLessThanOrEqualTo(Byte value) {
             addCriterion("status <=", value, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusIn(List<Integer> values) {
+        public Criteria andStatusIn(List<Byte> values) {
             addCriterion("status in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotIn(List<Integer> values) {
+        public Criteria andStatusNotIn(List<Byte> values) {
             addCriterion("status not in", values, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusBetween(Integer value1, Integer value2) {
+        public Criteria andStatusBetween(Byte value1, Byte value2) {
             addCriterion("status between", value1, value2, "status");
             return (Criteria) this;
         }
 
-        public Criteria andStatusNotBetween(Integer value1, Integer value2) {
+        public Criteria andStatusNotBetween(Byte value1, Byte value2) {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }

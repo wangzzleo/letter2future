@@ -20,32 +20,32 @@
         </commentGenerator>
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/letter2future?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true&amp;useSSL=false&amp;serverTimezone=GMT"
-                        userId="root"
-                        password="12345678">
+                        connectionURL="jdbc:mysql://129.28.166.134:3306/letter2future?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true&amp;useSSL=false&amp;serverTimezone=GMT"
+                        userId="letter2future"
+                        password="whoIsNo.1">
             <property name="nullCatalogMeansCurrent" value="true" />
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!--生成Model类存放位置-->
-        <javaModelGenerator targetPackage="com.pea2u.letter2future.model" targetProject="letter2future\src\main\java">
+        <javaModelGenerator targetPackage="com.pea2u.letter2future.model" targetProject="E:\wangzz\letter2future\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!--生成映射文件存放位置-->
-        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="letter2future\src\main\resources">
+        <sqlMapGenerator targetPackage="mybatis.mapper" targetProject="E:\wangzz\letter2future\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!--生成Dao类存放位置-->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.pea2u.letter2future.mapper" targetProject="letter2future\src\main\java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.pea2u.letter2future.mapper" targetProject="E:\wangzz\letter2future\src\main\java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <!--生成对应表及类名-->
-        <table tableName="sys_param" domainObjectName="SysParam" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>
-        <!--生成全部表tableName设为%
+        <!--生成对应表及类名
+        <table tableName="sys_param" domainObjectName="SysParam" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"/>-->
+        <!--生成全部表tableName设为%-->
         <table tableName="%">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>-->
+        </table>
     </context>
 </generatorConfiguration>

@@ -20,8 +20,6 @@ public interface AppCustomerMapper {
 
     AppCustomer selectByPrimaryKey(Integer id);
 
-    AppCustomer selectByWxId(String id);
-
     int updateByExampleSelective(@Param("record") AppCustomer record, @Param("example") AppCustomerExample example);
 
     int updateByExample(@Param("record") AppCustomer record, @Param("example") AppCustomerExample example);
@@ -29,4 +27,6 @@ public interface AppCustomerMapper {
     int updateByPrimaryKeySelective(AppCustomer record);
 
     int updateByPrimaryKey(AppCustomer record);
+
+    AppCustomer selectByWxId(String code);
 }

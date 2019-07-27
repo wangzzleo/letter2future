@@ -8,7 +8,7 @@ import lombok.Data;
  * 信件DTO
  */
 @Data
-public class LetterDto {
+public class LetterDTO {
 
     /**
      * 信件ID

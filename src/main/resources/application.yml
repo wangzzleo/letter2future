@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    active: test
+    active: local
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
   mvc:
@@ -19,5 +19,17 @@ mybatis:
     - classpath:mybatis/mybatis-config.xml
 
 jwt:
-  secret:
-  expiration:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: mySecret #JWT加解密使用的密钥
+  expiration: 7200 #JWT的超期限时间(60*60*24)
+  tokenHead: Bearer  #JWT负载中拿到开头
+
+wx:
+  authUrl: https://api.weixin.qq.com/sns/jscode2session
+  secret: 5c8600af1dd565eaa8cf222e93746f58
+  grantType: authorization_code
+
+
+letter2future:
+  sysParamPermitString: index_notice,index_notice2
+

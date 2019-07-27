@@ -1,11 +1,16 @@
 package com.pea2u.letter2future.controller;
 
 import com.pea2u.letter2future.common.CommonResult;
-import com.pea2u.letter2future.dto.CustomerDto;
+import com.pea2u.letter2future.common.CustomerStatusEnum;
+import com.pea2u.letter2future.common.ResultCode;
+import com.pea2u.letter2future.dto.CustomerDTO;
+import com.pea2u.letter2future.dto.CustomerQO;
 import com.pea2u.letter2future.dto.NoticeDTO;
 import com.pea2u.letter2future.service.CustomerService;
+import com.pea2u.letter2future.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,9 +26,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class CustomerController {
 
     @Autowired
+    @Qualifier("wxCustomerService")
     private CustomerService customerService;
 
-    public CommonResult<CustomerDto> signIn(String wxId) {
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+    public CommonResult<CustomerDTO> signIn(String wxId) {
         return null;
     }
 
@@ -40,12 +49,32 @@ public class CustomerController {
      * @return 登录响应信息
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public CommonResult<CustomerDto> login(String code) {
+    public CommonResult<CustomerDTO> login(String code, String custName) {
+        CommonResult<CustomerDTO> result = null;
         log.info("微信code：{} 正在登录...", code);
         Assert.hasText(code, "未获取到用户信息");
-        CustomerDto customerDtoQuery = new CustomerDto();
-        CustomerDto customerDto = customerService.queryCustomer(customerDtoQuery);
-        return CommonResult.success(customerDto);
+        CustomerQO customerQO = CustomerQO.builder().code(code).build();
+        CustomerDTO customerDTO = customerService.queryCustomer(customerQO);
+        if (customerDTO.getStatus().equals(CustomerStatusEnum.WX_LOGIN_FAIL.getStatus())) {
+            //微信端登录失败
+            result = CommonResult.failed(ResultCode.WX_LOGIN_FAIL);
+        }  else if (customerDTO.getStatus().equals(CustomerStatusEnum.FIRST_REGISTER.getStatus())) {
+            //首次注册
+            customerDTO.setToken(jwtTokenUtil.generateToken(custName));
+
+        } else if (customerDTO.getStatus().equals(CustomerStatusEnum.NORMAL.getStatus())) {
+            //状态正常
+            customerDTO.setToken(jwtTokenUtil.generateToken(custName));
+
+        } else if (customerDTO.getStatus().equals(CustomerStatusEnum.CLOSED.getStatus()) || customerDTO.getStatus().equals(CustomerStatusEnum.LOCKING.getStatus())) {
+            //账户状态异常，一般是干了坏事儿
+            result = CommonResult.failed(ResultCode.CUS_STATUS_UNUSUAL);
+        } else {
+            result = CommonResult.failed();
+            log.error("用户登录异常，登录状态未知！");
+        }
+
+        return result;
     }
 
     /**

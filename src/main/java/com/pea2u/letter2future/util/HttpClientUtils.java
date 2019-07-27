@@ -26,6 +26,7 @@ import java.io.*;
 import java.net.URI;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Map;
 
 public class HttpClientUtils {
 
@@ -143,6 +144,18 @@ public class HttpClientUtils {
             e.printStackTrace();
         }
         return sendSSLRequest(url, post, charset, mimeType);
+    }
+
+    public static String sendGetSSLRequest(String url, Map<String, String> param){
+        StringBuilder sb = new StringBuilder(url);
+        if (param != null) {
+            sb.append("?");
+            for (Map.Entry<String, String> entry: param.entrySet()) {
+                sb.append(entry.getKey()).append("=").append(entry.getValue()).append("&");
+            }
+            sb.deleteCharAt(sb.length()-1);
+        }
+        return sendGetSSLRequest(url, null, "UTF-8", "");
     }
 
     public static String sendGetSSLRequest(String url){

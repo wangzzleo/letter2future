@@ -1,6 +1,7 @@
 package com.pea2u.letter2future.controller;
 
 import com.pea2u.letter2future.common.CommonResult;
+import com.pea2u.letter2future.config.SysParamConfig;
 import com.pea2u.letter2future.dto.SysParamDTO;
 import com.pea2u.letter2future.service.SysParamService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +24,21 @@ public class SysParamController {
     @Autowired
     private SysParamService sysParamService;
 
+    @Autowired
+    private SysParamConfig sysParamConfig;
+
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public CommonResult<SysParamDTO> getSysParam(String paramKey) {
+        CommonResult<SysParamDTO> result = null;
         log.info("查询系统参数，入参:{}", paramKey);
         Assert.hasText(paramKey, "参数名称不可为空");
-        SysParamDTO sysParam = sysParamService.getSysParam(paramKey);
-        return CommonResult.success(sysParam);
+        if (sysParamConfig.getSysParamPermitSet().contains(paramKey)) {
+            SysParamDTO sysParam = sysParamService.getSysParam(paramKey);
+            result = CommonResult.success(sysParam);
+        } else {
+            result = CommonResult.failed();
+        }
+        return result;
     }
 
 

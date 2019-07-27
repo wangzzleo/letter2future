@@ -17,7 +17,7 @@ public class AppCustomer implements Serializable {
     @ApiModelProperty(value = "手机号码")
     private String phone;
 
-    @ApiModelProperty(value = "微信号")
+    @ApiModelProperty(value = "微信开放号")
     private String wxId;
 
     @ApiModelProperty(value = "qq号码")
@@ -29,7 +29,10 @@ public class AppCustomer implements Serializable {
     @ApiModelProperty(value = "头条账户")
     private String toutiaoId;
 
-    @ApiModelProperty(value = "账户状态")
+    @ApiModelProperty(value = "电子邮箱")
+    private String email;
+
+    @ApiModelProperty(value = "账户状态 0：正常 1：锁定 2：注销 3:初次注册")
     private Boolean status;
 
     @ApiModelProperty(value = "创建时间")
@@ -104,6 +107,14 @@ public class AppCustomer implements Serializable {
         this.toutiaoId = toutiaoId == null ? null : toutiaoId.trim();
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
+    }
+
     public Boolean getStatus() {
         return status;
     }
@@ -142,6 +153,7 @@ public class AppCustomer implements Serializable {
         sb.append(", qqNumber=").append(qqNumber);
         sb.append(", alipayId=").append(alipayId);
         sb.append(", toutiaoId=").append(toutiaoId);
+        sb.append(", email=").append(email);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

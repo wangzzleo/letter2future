@@ -1,15 +1,12 @@
 package com.pea2u.letter2future.service;
 
-import com.pea2u.letter2future.dto.CustomerDto;
+import com.pea2u.letter2future.dto.CustomerDTO;
+import com.pea2u.letter2future.dto.CustomerQO;
 
 public interface CustomerService {
 
-    CustomerDto createCustomer(CustomerDto customer);
+    CustomerDTO createCustomer(CustomerQO customer);
 
-    CustomerDto queryCustomer(CustomerDto customer);
-
-    CustomerDto queryWxCustomer(String openid);
-
-    String wxLoin(String code);
+    CustomerDTO queryCustomer(CustomerQO customer);
 
 }

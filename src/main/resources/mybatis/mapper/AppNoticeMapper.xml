@@ -3,18 +3,15 @@
 <mapper namespace="com.pea2u.letter2future.mapper.AppNoticeMapper">
   <resultMap id="BaseResultMap" type="com.pea2u.letter2future.model.AppNotice">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="order_sn" jdbcType="VARCHAR" property="orderSn" />
-    <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
-    <result column="addressee_name" jdbcType="VARCHAR" property="addresseeName" />
-    <result column="addressee_zip_code" jdbcType="VARCHAR" property="addresseeZipCode" />
-    <result column="addressee_address" jdbcType="VARCHAR" property="addresseeAddress" />
-    <result column="addressee_phone" jdbcType="VARCHAR" property="addresseePhone" />
-    <result column="sender_name" jdbcType="VARCHAR" property="senderName" />
-    <result column="sender_zip_code" jdbcType="VARCHAR" property="senderZipCode" />
-    <result column="sender_address" jdbcType="VARCHAR" property="senderAddress" />
-    <result column="sender_phone" jdbcType="VARCHAR" property="senderPhone" />
+    <result column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="notice_title" jdbcType="VARCHAR" property="noticeTitle" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="notice_type" jdbcType="TINYINT" property="noticeType" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.pea2u.letter2future.model.AppNotice">
+    <result column="notice_content" jdbcType="LONGVARCHAR" property="noticeContent" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,9 +72,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, order_sn, send_time, addressee_name, addressee_zip_code, addressee_address, addressee_phone, 
-    sender_name, sender_zip_code, sender_address, sender_phone, create_time, update_time
+    id, cust_id, notice_title, status, notice_type, create_time, update_time
   </sql>
+  <sql id="Blob_Column_List">
+    notice_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.pea2u.letter2future.model.AppNoticeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from app_notice
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.pea2u.letter2future.model.AppNoticeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -92,9 +107,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from app_notice
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -112,16 +129,12 @@
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into app_notice (order_sn, send_time, addressee_name, 
-      addressee_zip_code, addressee_address, addressee_phone, 
-      sender_name, sender_zip_code, sender_address, 
-      sender_phone, create_time, update_time
-      )
-    values (#{orderSn,jdbcType=VARCHAR}, #{sendTime,jdbcType=TIMESTAMP}, #{addresseeName,jdbcType=VARCHAR}, 
-      #{addresseeZipCode,jdbcType=VARCHAR}, #{addresseeAddress,jdbcType=VARCHAR}, #{addresseePhone,jdbcType=VARCHAR}, 
-      #{senderName,jdbcType=VARCHAR}, #{senderZipCode,jdbcType=VARCHAR}, #{senderAddress,jdbcType=VARCHAR}, 
-      #{senderPhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
+    insert into app_notice (cust_id, notice_title, status, 
+      notice_type, create_time, update_time, 
+      notice_content)
+    values (#{custId,jdbcType=INTEGER}, #{noticeTitle,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{noticeType,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{noticeContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pea2u.letter2future.model.AppNotice">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -129,35 +142,17 @@
     </selectKey>
     insert into app_notice
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderSn != null">
-        order_sn,
+      <if test="custId != null">
+        cust_id,
       </if>
-      <if test="sendTime != null">
-        send_time,
+      <if test="noticeTitle != null">
+        notice_title,
       </if>
-      <if test="addresseeName != null">
-        addressee_name,
+      <if test="status != null">
+        status,
       </if>
-      <if test="addresseeZipCode != null">
-        addressee_zip_code,
-      </if>
-      <if test="addresseeAddress != null">
-        addressee_address,
-      </if>
-      <if test="addresseePhone != null">
-        addressee_phone,
-      </if>
-      <if test="senderName != null">
-        sender_name,
-      </if>
-      <if test="senderZipCode != null">
-        sender_zip_code,
-      </if>
-      <if test="senderAddress != null">
-        sender_address,
-      </if>
-      <if test="senderPhone != null">
-        sender_phone,
+      <if test="noticeType != null">
+        notice_type,
       </if>
       <if test="createTime != null">
         create_time,
@@ -165,43 +160,31 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="noticeContent != null">
+        notice_content,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderSn != null">
-        #{orderSn,jdbcType=VARCHAR},
+      <if test="custId != null">
+        #{custId,jdbcType=INTEGER},
       </if>
-      <if test="sendTime != null">
-        #{sendTime,jdbcType=TIMESTAMP},
+      <if test="noticeTitle != null">
+        #{noticeTitle,jdbcType=VARCHAR},
       </if>
-      <if test="addresseeName != null">
-        #{addresseeName,jdbcType=VARCHAR},
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
       </if>
-      <if test="addresseeZipCode != null">
-        #{addresseeZipCode,jdbcType=VARCHAR},
-      </if>
-      <if test="addresseeAddress != null">
-        #{addresseeAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="addresseePhone != null">
-        #{addresseePhone,jdbcType=VARCHAR},
-      </if>
-      <if test="senderName != null">
-        #{senderName,jdbcType=VARCHAR},
-      </if>
-      <if test="senderZipCode != null">
-        #{senderZipCode,jdbcType=VARCHAR},
-      </if>
-      <if test="senderAddress != null">
-        #{senderAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="senderPhone != null">
-        #{senderPhone,jdbcType=VARCHAR},
+      <if test="noticeType != null">
+        #{noticeType,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="noticeContent != null">
+        #{noticeContent,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -217,35 +200,17 @@
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.orderSn != null">
-        order_sn = #{record.orderSn,jdbcType=VARCHAR},
+      <if test="record.custId != null">
+        cust_id = #{record.custId,jdbcType=INTEGER},
       </if>
-      <if test="record.sendTime != null">
-        send_time = #{record.sendTime,jdbcType=TIMESTAMP},
+      <if test="record.noticeTitle != null">
+        notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
       </if>
-      <if test="record.addresseeName != null">
-        addressee_name = #{record.addresseeName,jdbcType=VARCHAR},
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
       </if>
-      <if test="record.addresseeZipCode != null">
-        addressee_zip_code = #{record.addresseeZipCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.addresseeAddress != null">
-        addressee_address = #{record.addresseeAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.addresseePhone != null">
-        addressee_phone = #{record.addresseePhone,jdbcType=VARCHAR},
-      </if>
-      <if test="record.senderName != null">
-        sender_name = #{record.senderName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.senderZipCode != null">
-        sender_zip_code = #{record.senderZipCode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.senderAddress != null">
-        sender_address = #{record.senderAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.senderPhone != null">
-        sender_phone = #{record.senderPhone,jdbcType=VARCHAR},
+      <if test="record.noticeType != null">
+        notice_type = #{record.noticeType,jdbcType=TINYINT},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -253,7 +218,24 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.noticeContent != null">
+        notice_content = #{record.noticeContent,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update app_notice
+    set id = #{record.id,jdbcType=INTEGER},
+      cust_id = #{record.custId,jdbcType=INTEGER},
+      notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      notice_type = #{record.noticeType,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      notice_content = #{record.noticeContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -261,16 +243,10 @@
   <update id="updateByExample" parameterType="map">
     update app_notice
     set id = #{record.id,jdbcType=INTEGER},
-      order_sn = #{record.orderSn,jdbcType=VARCHAR},
-      send_time = #{record.sendTime,jdbcType=TIMESTAMP},
-      addressee_name = #{record.addresseeName,jdbcType=VARCHAR},
-      addressee_zip_code = #{record.addresseeZipCode,jdbcType=VARCHAR},
-      addressee_address = #{record.addresseeAddress,jdbcType=VARCHAR},
-      addressee_phone = #{record.addresseePhone,jdbcType=VARCHAR},
-      sender_name = #{record.senderName,jdbcType=VARCHAR},
-      sender_zip_code = #{record.senderZipCode,jdbcType=VARCHAR},
-      sender_address = #{record.senderAddress,jdbcType=VARCHAR},
-      sender_phone = #{record.senderPhone,jdbcType=VARCHAR},
+      cust_id = #{record.custId,jdbcType=INTEGER},
+      notice_title = #{record.noticeTitle,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=TINYINT},
+      notice_type = #{record.noticeType,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -280,35 +256,17 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.pea2u.letter2future.model.AppNotice">
     update app_notice
     <set>
-      <if test="orderSn != null">
-        order_sn = #{orderSn,jdbcType=VARCHAR},
+      <if test="custId != null">
+        cust_id = #{custId,jdbcType=INTEGER},
       </if>
-      <if test="sendTime != null">
-        send_time = #{sendTime,jdbcType=TIMESTAMP},
+      <if test="noticeTitle != null">
+        notice_title = #{noticeTitle,jdbcType=VARCHAR},
       </if>
-      <if test="addresseeName != null">
-        addressee_name = #{addresseeName,jdbcType=VARCHAR},
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
       </if>
-      <if test="addresseeZipCode != null">
-        addressee_zip_code = #{addresseeZipCode,jdbcType=VARCHAR},
-      </if>
-      <if test="addresseeAddress != null">
-        addressee_address = #{addresseeAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="addresseePhone != null">
-        addressee_phone = #{addresseePhone,jdbcType=VARCHAR},
-      </if>
-      <if test="senderName != null">
-        sender_name = #{senderName,jdbcType=VARCHAR},
-      </if>
-      <if test="senderZipCode != null">
-        sender_zip_code = #{senderZipCode,jdbcType=VARCHAR},
-      </if>
-      <if test="senderAddress != null">
-        sender_address = #{senderAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="senderPhone != null">
-        sender_phone = #{senderPhone,jdbcType=VARCHAR},
+      <if test="noticeType != null">
+        notice_type = #{noticeType,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -316,21 +274,29 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="noticeContent != null">
+        notice_content = #{noticeContent,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.pea2u.letter2future.model.AppNotice">
+    update app_notice
+    set cust_id = #{custId,jdbcType=INTEGER},
+      notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      notice_type = #{noticeType,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      notice_content = #{noticeContent,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.pea2u.letter2future.model.AppNotice">
     update app_notice
-    set order_sn = #{orderSn,jdbcType=VARCHAR},
-      send_time = #{sendTime,jdbcType=TIMESTAMP},
-      addressee_name = #{addresseeName,jdbcType=VARCHAR},
-      addressee_zip_code = #{addresseeZipCode,jdbcType=VARCHAR},
-      addressee_address = #{addresseeAddress,jdbcType=VARCHAR},
-      addressee_phone = #{addresseePhone,jdbcType=VARCHAR},
-      sender_name = #{senderName,jdbcType=VARCHAR},
-      sender_zip_code = #{senderZipCode,jdbcType=VARCHAR},
-      sender_address = #{senderAddress,jdbcType=VARCHAR},
-      sender_phone = #{senderPhone,jdbcType=VARCHAR},
+    set cust_id = #{custId,jdbcType=INTEGER},
+      notice_title = #{noticeTitle,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      notice_type = #{noticeType,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -16,4 +16,13 @@ public class StringUtils {
         return str == null || "".equals(str);
     }
 
+    /**
+     * 是否不为空字符串
+     * @param str 字符串
+     * @return 是否为空
+     */
+    public static boolean isNotBlank(String str) {
+        return str != null && !"".equals(str);
+    }
+
 }

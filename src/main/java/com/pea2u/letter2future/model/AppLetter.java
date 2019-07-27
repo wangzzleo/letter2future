@@ -15,16 +15,13 @@ public class AppLetter implements Serializable {
     private String letterTitle;
 
     @ApiModelProperty(value = "信件来源（0：小程序 1：web端 2：支付宝小程序 3：公众号）")
-    private Integer letterSource;
+    private Byte letterSource;
 
     @ApiModelProperty(value = "信件类型(0:私密 1:公开)")
-    private Integer letterType;
+    private Byte letterType;
 
-    @ApiModelProperty(value = "审核状态（0：未审核 1：审核通过 2：审核拒绝）")
-    private Integer checkStatus;
-
-    @ApiModelProperty(value = "信件状态 0:正在创建 1:创建完成，等待发送 2:发送完成")
-    private Integer status;
+    @ApiModelProperty(value = "信件状态 0:正在创建|1:创建完成，等待审核|2:审核通过，等待发送|3：审核拒绝|4：发送完成|5：信件作废")
+    private Byte status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -61,35 +58,27 @@ public class AppLetter implements Serializable {
         this.letterTitle = letterTitle == null ? null : letterTitle.trim();
     }
 
-    public Integer getLetterSource() {
+    public Byte getLetterSource() {
         return letterSource;
     }
 
-    public void setLetterSource(Integer letterSource) {
+    public void setLetterSource(Byte letterSource) {
         this.letterSource = letterSource;
     }
 
-    public Integer getLetterType() {
+    public Byte getLetterType() {
         return letterType;
     }
 
-    public void setLetterType(Integer letterType) {
+    public void setLetterType(Byte letterType) {
         this.letterType = letterType;
     }
 
-    public Integer getCheckStatus() {
-        return checkStatus;
-    }
-
-    public void setCheckStatus(Integer checkStatus) {
-        this.checkStatus = checkStatus;
-    }
-
-    public Integer getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -128,7 +117,6 @@ public class AppLetter implements Serializable {
         sb.append(", letterTitle=").append(letterTitle);
         sb.append(", letterSource=").append(letterSource);
         sb.append(", letterType=").append(letterType);
-        sb.append(", checkStatus=").append(checkStatus);
         sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

@@ -5,10 +5,9 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="cust_id" jdbcType="INTEGER" property="custId" />
     <result column="letter_title" jdbcType="VARCHAR" property="letterTitle" />
-    <result column="letter_source" jdbcType="INTEGER" property="letterSource" />
-    <result column="letter_type" jdbcType="INTEGER" property="letterType" />
-    <result column="check_status" jdbcType="INTEGER" property="checkStatus" />
-    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="letter_source" jdbcType="TINYINT" property="letterSource" />
+    <result column="letter_type" jdbcType="TINYINT" property="letterType" />
+    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
@@ -74,8 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, cust_id, letter_title, letter_source, letter_type, check_status, status, create_time, 
-    update_time
+    id, cust_id, letter_title, letter_source, letter_type, status, create_time, update_time
   </sql>
   <sql id="Blob_Column_List">
     letter_content
@@ -133,13 +131,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into app_letter (cust_id, letter_title, letter_source, 
-      letter_type, check_status, status, 
-      create_time, update_time, letter_content
-      )
-    values (#{custId,jdbcType=INTEGER}, #{letterTitle,jdbcType=VARCHAR}, #{letterSource,jdbcType=INTEGER}, 
-      #{letterType,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{letterContent,jdbcType=LONGVARCHAR}
-      )
+      letter_type, status, create_time, 
+      update_time, letter_content)
+    values (#{custId,jdbcType=INTEGER}, #{letterTitle,jdbcType=VARCHAR}, #{letterSource,jdbcType=TINYINT}, 
+      #{letterType,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{letterContent,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.pea2u.letter2future.model.AppLetter">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
@@ -158,9 +154,6 @@
       </if>
       <if test="letterType != null">
         letter_type,
-      </if>
-      <if test="checkStatus != null">
-        check_status,
       </if>
       <if test="status != null">
         status,
@@ -183,16 +176,13 @@
         #{letterTitle,jdbcType=VARCHAR},
       </if>
       <if test="letterSource != null">
-        #{letterSource,jdbcType=INTEGER},
+        #{letterSource,jdbcType=TINYINT},
       </if>
       <if test="letterType != null">
-        #{letterType,jdbcType=INTEGER},
-      </if>
-      <if test="checkStatus != null">
-        #{checkStatus,jdbcType=INTEGER},
+        #{letterType,jdbcType=TINYINT},
       </if>
       <if test="status != null">
-        #{status,jdbcType=INTEGER},
+        #{status,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -224,16 +214,13 @@
         letter_title = #{record.letterTitle,jdbcType=VARCHAR},
       </if>
       <if test="record.letterSource != null">
-        letter_source = #{record.letterSource,jdbcType=INTEGER},
+        letter_source = #{record.letterSource,jdbcType=TINYINT},
       </if>
       <if test="record.letterType != null">
-        letter_type = #{record.letterType,jdbcType=INTEGER},
-      </if>
-      <if test="record.checkStatus != null">
-        check_status = #{record.checkStatus,jdbcType=INTEGER},
+        letter_type = #{record.letterType,jdbcType=TINYINT},
       </if>
       <if test="record.status != null">
-        status = #{record.status,jdbcType=INTEGER},
+        status = #{record.status,jdbcType=TINYINT},
       </if>
       <if test="record.createTime != null">
         create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -254,10 +241,9 @@
     set id = #{record.id,jdbcType=INTEGER},
       cust_id = #{record.custId,jdbcType=INTEGER},
       letter_title = #{record.letterTitle,jdbcType=VARCHAR},
-      letter_source = #{record.letterSource,jdbcType=INTEGER},
-      letter_type = #{record.letterType,jdbcType=INTEGER},
-      check_status = #{record.checkStatus,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
+      letter_source = #{record.letterSource,jdbcType=TINYINT},
+      letter_type = #{record.letterType,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       letter_content = #{record.letterContent,jdbcType=LONGVARCHAR}
@@ -270,10 +256,9 @@
     set id = #{record.id,jdbcType=INTEGER},
       cust_id = #{record.custId,jdbcType=INTEGER},
       letter_title = #{record.letterTitle,jdbcType=VARCHAR},
-      letter_source = #{record.letterSource,jdbcType=INTEGER},
-      letter_type = #{record.letterType,jdbcType=INTEGER},
-      check_status = #{record.checkStatus,jdbcType=INTEGER},
-      status = #{record.status,jdbcType=INTEGER},
+      letter_source = #{record.letterSource,jdbcType=TINYINT},
+      letter_type = #{record.letterType,jdbcType=TINYINT},
+      status = #{record.status,jdbcType=TINYINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -290,16 +275,13 @@
         letter_title = #{letterTitle,jdbcType=VARCHAR},
       </if>
       <if test="letterSource != null">
-        letter_source = #{letterSource,jdbcType=INTEGER},
+        letter_source = #{letterSource,jdbcType=TINYINT},
       </if>
       <if test="letterType != null">
-        letter_type = #{letterType,jdbcType=INTEGER},
-      </if>
-      <if test="checkStatus != null">
-        check_status = #{checkStatus,jdbcType=INTEGER},
+        letter_type = #{letterType,jdbcType=TINYINT},
       </if>
       <if test="status != null">
-        status = #{status,jdbcType=INTEGER},
+        status = #{status,jdbcType=TINYINT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -317,10 +299,9 @@
     update app_letter
     set cust_id = #{custId,jdbcType=INTEGER},
       letter_title = #{letterTitle,jdbcType=VARCHAR},
-      letter_source = #{letterSource,jdbcType=INTEGER},
-      letter_type = #{letterType,jdbcType=INTEGER},
-      check_status = #{checkStatus,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+      letter_source = #{letterSource,jdbcType=TINYINT},
+      letter_type = #{letterType,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       letter_content = #{letterContent,jdbcType=LONGVARCHAR}
@@ -330,10 +311,9 @@
     update app_letter
     set cust_id = #{custId,jdbcType=INTEGER},
       letter_title = #{letterTitle,jdbcType=VARCHAR},
-      letter_source = #{letterSource,jdbcType=INTEGER},
-      letter_type = #{letterType,jdbcType=INTEGER},
-      check_status = #{checkStatus,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
+      letter_source = #{letterSource,jdbcType=TINYINT},
+      letter_type = #{letterType,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

@@ -8,11 +8,38 @@ public class AppOrder implements Serializable {
     @ApiModelProperty(value = "自增ID")
     private Integer id;
 
-    @ApiModelProperty(value = "订单唯一编号")
-    private String orderSn;
+    @ApiModelProperty(value = "信件唯一编号")
+    private Integer letterId;
 
     @ApiModelProperty(value = "客户id")
     private Integer custId;
+
+    @ApiModelProperty(value = "寄信时间")
+    private Date sendTime;
+
+    @ApiModelProperty(value = "收件人")
+    private String addresseeName;
+
+    @ApiModelProperty(value = "收件人邮编")
+    private String addresseeZipCode;
+
+    @ApiModelProperty(value = "收件人地址（必填）")
+    private String addresseeAddress;
+
+    @ApiModelProperty(value = "收件人电话（纸质必填）")
+    private String addresseePhone;
+
+    @ApiModelProperty(value = "寄件人")
+    private String senderName;
+
+    @ApiModelProperty(value = "寄件人邮编")
+    private String senderZipCode;
+
+    @ApiModelProperty(value = "寄件人地址")
+    private String senderAddress;
+
+    @ApiModelProperty(value = "寄件人电话")
+    private String senderPhone;
 
     @ApiModelProperty(value = "总金额")
     private Long totalAmount;
@@ -29,7 +56,7 @@ public class AppOrder implements Serializable {
     @ApiModelProperty(value = "支付方式：0:未支付；1:支付宝；2:微信")
     private Byte payType;
 
-    @ApiModelProperty(value = "订单状态(0:正在生成 ;1:等待支付; 2:已支付; 3:已作废)")
+    @ApiModelProperty(value = "订单状态(0:等待支付|1:免费订单，无需支付|2:已支付|3:已作废)")
     private Byte status;
 
     @ApiModelProperty(value = "创建时间")
@@ -48,12 +75,12 @@ public class AppOrder implements Serializable {
         this.id = id;
     }
 
-    public String getOrderSn() {
-        return orderSn;
+    public Integer getLetterId() {
+        return letterId;
     }
 
-    public void setOrderSn(String orderSn) {
-        this.orderSn = orderSn == null ? null : orderSn.trim();
+    public void setLetterId(Integer letterId) {
+        this.letterId = letterId;
     }
 
     public Integer getCustId() {
@@ -62,6 +89,78 @@ public class AppOrder implements Serializable {
 
     public void setCustId(Integer custId) {
         this.custId = custId;
+    }
+
+    public Date getSendTime() {
+        return sendTime;
+    }
+
+    public void setSendTime(Date sendTime) {
+        this.sendTime = sendTime;
+    }
+
+    public String getAddresseeName() {
+        return addresseeName;
+    }
+
+    public void setAddresseeName(String addresseeName) {
+        this.addresseeName = addresseeName == null ? null : addresseeName.trim();
+    }
+
+    public String getAddresseeZipCode() {
+        return addresseeZipCode;
+    }
+
+    public void setAddresseeZipCode(String addresseeZipCode) {
+        this.addresseeZipCode = addresseeZipCode == null ? null : addresseeZipCode.trim();
+    }
+
+    public String getAddresseeAddress() {
+        return addresseeAddress;
+    }
+
+    public void setAddresseeAddress(String addresseeAddress) {
+        this.addresseeAddress = addresseeAddress == null ? null : addresseeAddress.trim();
+    }
+
+    public String getAddresseePhone() {
+        return addresseePhone;
+    }
+
+    public void setAddresseePhone(String addresseePhone) {
+        this.addresseePhone = addresseePhone == null ? null : addresseePhone.trim();
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName == null ? null : senderName.trim();
+    }
+
+    public String getSenderZipCode() {
+        return senderZipCode;
+    }
+
+    public void setSenderZipCode(String senderZipCode) {
+        this.senderZipCode = senderZipCode == null ? null : senderZipCode.trim();
+    }
+
+    public String getSenderAddress() {
+        return senderAddress;
+    }
+
+    public void setSenderAddress(String senderAddress) {
+        this.senderAddress = senderAddress == null ? null : senderAddress.trim();
+    }
+
+    public String getSenderPhone() {
+        return senderPhone;
+    }
+
+    public void setSenderPhone(String senderPhone) {
+        this.senderPhone = senderPhone == null ? null : senderPhone.trim();
     }
 
     public Long getTotalAmount() {
@@ -135,8 +234,17 @@ public class AppOrder implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", orderSn=").append(orderSn);
+        sb.append(", letterId=").append(letterId);
         sb.append(", custId=").append(custId);
+        sb.append(", sendTime=").append(sendTime);
+        sb.append(", addresseeName=").append(addresseeName);
+        sb.append(", addresseeZipCode=").append(addresseeZipCode);
+        sb.append(", addresseeAddress=").append(addresseeAddress);
+        sb.append(", addresseePhone=").append(addresseePhone);
+        sb.append(", senderName=").append(senderName);
+        sb.append(", senderZipCode=").append(senderZipCode);
+        sb.append(", senderAddress=").append(senderAddress);
+        sb.append(", senderPhone=").append(senderPhone);
         sb.append(", totalAmount=").append(totalAmount);
         sb.append(", payAmount=").append(payAmount);
         sb.append(", freightAmount=").append(freightAmount);

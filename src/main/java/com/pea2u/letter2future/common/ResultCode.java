@@ -28,7 +28,15 @@ public enum ResultCode implements IErrorCode {
     /**
      * 请求路径错误
      */
-    URL_NOT_FOUND(404, "请求路径错误");
+    URL_NOT_FOUND(404, "请求路径错误"),
+    /**
+     * 请求路径错误
+     */
+    WX_LOGIN_FAIL(502, "微信登录失败，请稍后重试！"),
+    /**
+     * 账户状态异常
+     */
+    CUS_STATUS_UNUSUAL(503, "账号状态异常，请联系官方处理！");
 
     private int code;
     private String message;
