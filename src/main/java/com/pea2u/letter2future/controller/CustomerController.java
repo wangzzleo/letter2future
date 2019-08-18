@@ -7,6 +7,7 @@ import com.pea2u.letter2future.dto.CustomerDTO;
 import com.pea2u.letter2future.dto.CustomerQO;
 import com.pea2u.letter2future.dto.NoticeDTO;
 import com.pea2u.letter2future.service.CustomerService;
+import com.pea2u.letter2future.service.NoticeService;
 import com.pea2u.letter2future.util.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class CustomerController {
     @Autowired
     @Qualifier("wxCustomerService")
     private CustomerService customerService;
+
+    @Autowired
+    private NoticeService noticeService;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
@@ -53,27 +57,29 @@ public class CustomerController {
         CommonResult<CustomerDTO> result = null;
         log.info("微信code：{} 正在登录...", code);
         Assert.hasText(code, "未获取到用户信息");
-        CustomerQO customerQO = CustomerQO.builder().code(code).build();
+        CustomerQO customerQO = CustomerQO.builder().code(code).custName(custName).build();
         CustomerDTO customerDTO = customerService.queryCustomer(customerQO);
         if (customerDTO.getStatus().equals(CustomerStatusEnum.WX_LOGIN_FAIL.getStatus())) {
-            //微信端登录失败
+            // 微信端登录失败
             result = CommonResult.failed(ResultCode.WX_LOGIN_FAIL);
         }  else if (customerDTO.getStatus().equals(CustomerStatusEnum.FIRST_REGISTER.getStatus())) {
-            //首次注册
-            customerDTO.setToken(jwtTokenUtil.generateToken(custName));
-
+            // 首次注册,初始化用户
+            CustomerDTO newCustomer = customerService.createCustomer(customerQO);
+            newCustomer.setToken(jwtTokenUtil.generateToken(newCustomer.getId().toString()));
+            newCustomer.setNoticeCount(0);
+            newCustomer.setReceiveLetterCount(0);
         } else if (customerDTO.getStatus().equals(CustomerStatusEnum.NORMAL.getStatus())) {
-            //状态正常
-            customerDTO.setToken(jwtTokenUtil.generateToken(custName));
-
+            // 状态正常
+            customerDTO.setToken(jwtTokenUtil.generateToken(customerDTO.getId().toString()));
+            customerDTO.setNoticeCount(noticeService.getCustNoticeCount(customerDTO.getId()));
+            customerDTO.setReceiveLetterCount(0);
         } else if (customerDTO.getStatus().equals(CustomerStatusEnum.CLOSED.getStatus()) || customerDTO.getStatus().equals(CustomerStatusEnum.LOCKING.getStatus())) {
-            //账户状态异常，一般是干了坏事儿
+            // 账户状态异常，一般是干了坏事儿
             result = CommonResult.failed(ResultCode.CUS_STATUS_UNUSUAL);
         } else {
             result = CommonResult.failed();
             log.error("用户登录异常，登录状态未知！");
         }
-
         return result;
     }
 

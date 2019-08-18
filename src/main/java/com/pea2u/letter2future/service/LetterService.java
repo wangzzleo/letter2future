@@ -8,6 +8,5 @@ public interface LetterService {
 
     boolean removeLetter(int id);
 
-
-
+    int countMyLetter(int custId);
 }

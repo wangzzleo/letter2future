@@ -35,7 +35,7 @@ public class CustomerDTO {
      * 推送信息状态
      * 0：无推送 1：有推送
      */
-    private Integer noticeStatus;
+    private Integer noticeCount;
 
     /**
      * 收到信件数量

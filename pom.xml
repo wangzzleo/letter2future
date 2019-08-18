@@ -92,11 +92,6 @@
             <artifactId>lombok</artifactId>
             <version>1.16.14</version>
         </dependency>
-        <!-- Spring security-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
         <!--JWT(Json Web Token)登录支持-->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

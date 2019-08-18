@@ -31,7 +31,7 @@ public class WxCustomerServiceImpl implements CustomerService {
     @Autowired
     private AppCustomerMapper appCustomerMapper;
 
-    @Value("wx.authUrl")
+    @Value("${wx.authUrl}")
     private String WX_AUTH_URL;
 
     @Value("${wx.appId}")
@@ -45,15 +45,21 @@ public class WxCustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO createCustomer(CustomerQO customerQO) {
-        return null;
+        CustomerDTO customerDTO = new CustomerDTO();
+        AppCustomer appCustomer = new AppCustomer();
+        appCustomer.setCustName(customerQO.getCustName());
+        appCustomer.setStatus((byte)0);
+        appCustomerMapper.insertSelective(appCustomer);
+        BeanUtils.copyProperties(appCustomer, customerDTO);
+        return customerDTO;
     }
 
     @Override
     public CustomerDTO queryCustomer(CustomerQO customerQO) {
         String code = customerQO.getCode();
         CustomerDTO customerDTO = new CustomerDTO();
-        // 请求微信获取session
-        Map<String, String> param = new HashMap<>();
+        // 请求微信接口获取session
+        Map<String, String> param = new HashMap<>(8);
         param.put("appid", APPID);
         param.put("secret", SECRET);
         param.put("js_code", code);
@@ -80,4 +86,20 @@ public class WxCustomerServiceImpl implements CustomerService {
         return customerDTO;
     }
 
+    @Override
+    public CustomerDTO closeCustomer(CustomerQO customer) {
+        AppCustomer appCustomer = new AppCustomer();
+        appCustomer.setWxId(customer.getWxId());
+        appCustomer.setStatus((byte)2);
+        appCustomerMapper.updateStatusByWxId(appCustomer);
+        return null;
+    }
+
+    @Override
+    public CustomerDTO updateCustomer(CustomerDTO customer) {
+        AppCustomer appCustomer = new AppCustomer();
+        BeanUtils.copyProperties(customer, appCustomer);
+        appCustomerMapper.updateByPrimaryKeySelective(appCustomer);
+        return null;
+    }
 }

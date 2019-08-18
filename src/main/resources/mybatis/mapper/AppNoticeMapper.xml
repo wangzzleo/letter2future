@@ -301,4 +301,13 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectCountByCustIdAndStatus" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+    select
+      count(*)
+    from app_notice
+    where cust_id = #{custId,jdbcType=INTEGER} and
+    status = 0
+  </select>
+
 </mapper>

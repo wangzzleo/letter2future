@@ -5,7 +5,6 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -78,11 +77,12 @@ public class JwtTokenUtil {
      * 验证token是否还有效
      *
      * @param token       客户端传入的token
-     * @param userDetails 从数据库中查询出来的用户信息
+     * //@param userDetails 从数据库中查询出来的用户信息
      */
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token) {
         String username = getUserNameFromToken(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+        //username.equals(userDetails.getUsername()) &&
+        return !isTokenExpired(token);
     }
 
     /**
@@ -105,7 +105,7 @@ public class JwtTokenUtil {
      * 根据用户信息生成token
      */
     public String generateToken(String userName) {
-        Map<String, Object> claims = new HashMap<>();
+        Map<String, Object> claims = new HashMap<>(8);
         claims.put(CLAIM_KEY_USERNAME, userName);
         claims.put(CLAIM_KEY_CREATED, new Date());
         return generateToken(claims);

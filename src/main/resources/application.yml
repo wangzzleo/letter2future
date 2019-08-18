@@ -28,6 +28,7 @@ wx:
   authUrl: https://api.weixin.qq.com/sns/jscode2session
   secret: 5c8600af1dd565eaa8cf222e93746f58
   grantType: authorization_code
+  appId: wxid_nv5thcuzlm1c22
 
 
 letter2future:

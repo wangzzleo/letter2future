@@ -28,5 +28,9 @@ public interface AppCustomerMapper {
 
     int updateByPrimaryKey(AppCustomer record);
 
-    AppCustomer selectByWxId(String code);
+    int updateStatusByPrimaryKey(AppCustomer record);
+
+    int updateStatusByWxId(AppCustomer record);
+
+    AppCustomer selectByWxId(String wxId);
 }

@@ -22,11 +22,6 @@ public class CustomerQO {
     private Integer id;
 
     /**
-     * 用户名
-     */
-    private String custName;
-
-    /**
      * 微信ID
      */
     private String wxId;
@@ -35,6 +30,31 @@ public class CustomerQO {
      * 微信登录code
      */
     private String code;
+
+    /**
+     * 用户名
+     */
+    private String custName;
+
+    /**
+     * 性别0 ：未知、1：男、2：女
+     */
+    private Integer gender;
+
+    /**
+     * 省份
+     */
+    private String province;
+
+    /**
+     * 城市
+     */
+    private String city;
+
+    /**
+     * 国家
+     */
+    private String country;
 
     /**
      * 用户标识

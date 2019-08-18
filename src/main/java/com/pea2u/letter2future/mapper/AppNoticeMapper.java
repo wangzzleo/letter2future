@@ -33,4 +33,6 @@ public interface AppNoticeMapper {
     int updateByPrimaryKeyWithBLOBs(AppNotice record);
 
     int updateByPrimaryKey(AppNotice record);
+
+    int selectCountByCustIdAndStatus(Integer custId);
 }

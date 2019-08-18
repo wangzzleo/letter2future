@@ -33,7 +33,7 @@ public class AppCustomer implements Serializable {
     private String email;
 
     @ApiModelProperty(value = "账户状态 0：正常 1：锁定 2：注销 3:初次注册")
-    private Boolean status;
+    private Byte status;
 
     @ApiModelProperty(value = "创建时间")
     private Date createTime;
@@ -115,11 +115,11 @@ public class AppCustomer implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public Boolean getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
