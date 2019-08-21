@@ -68,11 +68,13 @@ public class CustomerController {
             newCustomer.setToken(jwtTokenUtil.generateToken(newCustomer.getId().toString()));
             newCustomer.setNoticeCount(0);
             newCustomer.setReceiveLetterCount(0);
+            result = CommonResult.success(newCustomer, "登录成功");
         } else if (customerDTO.getStatus().equals(CustomerStatusEnum.NORMAL.getStatus())) {
             // 状态正常
             customerDTO.setToken(jwtTokenUtil.generateToken(customerDTO.getId().toString()));
             customerDTO.setNoticeCount(noticeService.getCustNoticeCount(customerDTO.getId()));
             customerDTO.setReceiveLetterCount(0);
+            result = CommonResult.success(customerDTO, "登录成功");
         } else if (customerDTO.getStatus().equals(CustomerStatusEnum.CLOSED.getStatus()) || customerDTO.getStatus().equals(CustomerStatusEnum.LOCKING.getStatus())) {
             // 账户状态异常，一般是干了坏事儿
             result = CommonResult.failed(ResultCode.CUS_STATUS_UNUSUAL);
@@ -90,6 +92,15 @@ public class CustomerController {
     @RequestMapping(value = "/notice", method = RequestMethod.POST)
     public CommonResult<NoticeDTO> getNotice(){
         return null;
+    }
+
+    /**
+     * 主动获取通知
+     * @return
+     */
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public CommonResult<NoticeDTO> test(){
+        return CommonResult.success(new NoticeDTO(), "测试成功");
     }
 
 }
